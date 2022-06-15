@@ -1,0 +1,27 @@
+{
+  "name": "@web-alchemy/event-target",
+  "version": "1.0.0",
+  "description": "Event emitter based on standard EventTarget",
+  "type": "module",
+  "main": "index.js",
+  "module": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "node test.js",
+    "preversion": "npm test",
+    "postversion": "npm publish",
+    "postpublish": "git push origin --all; git push origin --tags"
+  },
+  "homepage": "https://github.com/web-alchemy/event-target#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/web-alchemy/event-target.git"
+  },
+  "bugs": {
+    "url": "https://github.com/web-alchemy/event-target/issues"
+  },
+  "author": "monochromer <monochromer@mail.ru>",
+  "license": "MIT"
+}
