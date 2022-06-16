@@ -12,7 +12,7 @@ globalSpace.CustomEvent = globalSpace.CustomEvent || class CustomEvent extends E
   }
 }
 
-test('version of Node.js should be greater than 18.3', () => {
+test('version of Node.js should be >= 18.3', () => {
   const [major, minor] = process.versions.node
     .split('.')
     .map(number => parseInt(number))
@@ -103,7 +103,6 @@ test('should handle standard events', (t, done) => {
   const eventName = 'change'
 
   function handler(event) {
-    console.log('event: ', event)
     assert.ok(typeof event === 'object')
     assert.ok(event.type === eventName)
     done()
