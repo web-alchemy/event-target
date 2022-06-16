@@ -23,5 +23,24 @@
     "url": "https://github.com/web-alchemy/event-target/issues"
   },
   "author": "monochromer <monochromer@mail.ru>",
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": [
+    "EventEmitter",
+    "EventTarget",
+    "EventDispatcher",
+    "EventBus",
+    "pub/sub",
+    "observer",
+    "mediator",
+    "subscribe",
+    "publish",
+    "dispatch",
+    "emit",
+    "listener",
+    "events",
+    "addEventListener",
+    "dispatchEvent",
+    "pattern",
+    "tiny"
+  ]
 }
