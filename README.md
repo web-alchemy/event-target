@@ -1,4 +1,4 @@
-# Event emitter based on standard EventTarget
+# Tiny event emitter based on standard EventTarget
 
 This event emitter simply inherits from global standard class `EventTarget` and create methods aliases: `on` for `addEventListener`, `off` for `removeEventListener` and `emit` for dispatching custom events (see example below).
 
