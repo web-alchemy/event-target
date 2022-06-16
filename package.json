@@ -1,6 +1,6 @@
 {
   "name": "@web-alchemy/event-target",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Event emitter based on standard EventTarget",
   "type": "module",
   "main": "index.js",
