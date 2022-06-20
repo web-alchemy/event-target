@@ -111,3 +111,82 @@ test('should handle standard events', (t, done) => {
   eventEmitter.on(eventName, handler)
   eventEmitter.dispatchEvent(new Event(eventName))
 })
+
+test('should handle default case with `cancelable: false`', async () => {
+  const eventEmitter = new EventEmitter()
+  const eventName = 'custom.event'
+
+  const testCase = new Promise((resolve) => {
+    eventEmitter.on(eventName, (event) => {
+      const { defaultPrevented } = event
+      resolve(defaultPrevented)
+    })
+  })
+
+  const cancelResult = eventEmitter.emit(eventName)
+
+  const result = await testCase;
+
+  assert.ok(result === false, 'Event should have `defaultPrevented` with `false`')
+  assert.ok(cancelResult === true, 'Result of `dispatchEvent` should be `true`')
+})
+
+test('should handle case with `cancelable: true`', async () => {
+  const eventEmitter = new EventEmitter()
+  const eventName = 'custom.event'
+
+  const testCase = new Promise((resolve) => {
+    eventEmitter.on(eventName, (event) => {
+      event.preventDefault()
+      const { defaultPrevented } = event
+      resolve(defaultPrevented)
+    })
+  })
+
+  const cancelResult = eventEmitter.emit(eventName, null, {
+    cancelable: true
+  })
+
+  const result = await testCase;
+
+  assert.ok(result === true, 'Event should have `defaultPrevented` with `true`')
+  assert.ok(cancelResult === false, 'Result of `dispatchEvent` should be `false`')
+})
+
+test('should handle cancelable custom events with several functions', async () => {
+  const eventEmitter = new EventEmitter()
+  const eventName = 'custom.event'
+
+  const case1 = new Promise((resolve) => {
+    eventEmitter.on(eventName, (event) => {
+      const { defaultPrevented } = event
+      resolve(defaultPrevented)
+    })
+  })
+
+  const case2 = new Promise((resolve) => {
+    eventEmitter.on(eventName, (event) => {
+      event.preventDefault()
+      const { defaultPrevented } = event
+      resolve(defaultPrevented)
+    })
+  })
+
+  const case3 = new Promise((resolve) => {
+    eventEmitter.on(eventName, (event) => {
+      const { defaultPrevented } = event
+      resolve(defaultPrevented)
+    })
+  })
+
+  const cancelResult = eventEmitter.emit(eventName, null, {
+    cancelable: true
+  })
+
+  const [result1, result2, result3] = await Promise.all([case1, case2, case3])
+
+  assert.ok(result1 === false, 'First event should have `defaultPrevented` with `false`')
+  assert.ok(result2 === true, 'Second event should have `defaultPrevented` with `true`')
+  assert.ok(result3 === true, 'Third event should have `defaultPrevented` with `true`')
+  assert.ok(cancelResult === false, 'Result of `dispatchEvent` should be `false`')
+})

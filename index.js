@@ -5,9 +5,10 @@ Object.assign(EventEmitter.prototype, {
 
   off: EventTarget.prototype.removeEventListener,
 
-  emit(eventType, detail) {
-    this.dispatchEvent(new CustomEvent(eventType, {
-      detail
+  emit(eventType, detail, options = {}) {
+    return this.dispatchEvent(new CustomEvent(eventType, {
+      detail,
+      ...options
     }))
   }
 })
